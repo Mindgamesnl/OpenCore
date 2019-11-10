@@ -1,0 +1,6 @@
+message:
+  permission_error: "&cYou are not allowed to do this!"
+  player_join: "&c{player} &fjoined!"
+  player_leave: "&c{player} &fleft!"
+  command_usage_not_found: "&4Command usage not found!"
+  correct_command_usage: "&cWrong usage! Use &f/{usage}&c!"

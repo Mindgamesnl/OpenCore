@@ -1,0 +1,9 @@
+name: OpenCore
+authors: [iTeije]
+version: ${project.version}
+main: eu.opencore.OpenCore
+
+commands:
+  gamemode:
+    usage: /<command>
+    aliases: gm
