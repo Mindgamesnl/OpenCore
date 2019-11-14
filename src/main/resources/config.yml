@@ -1,6 +1,13 @@
 message:
   permission_error: "&cYou are not allowed to do this!"
+  input_mismatch: "&cInvalid arguments!"
+
   player_join: "&c{player} &fjoined!"
   player_leave: "&c{player} &fleft!"
+
   command_usage_not_found: "&4Command usage not found!"
   correct_command_usage: "&cWrong usage! Use &f/{usage}&c!"
+
+  gamemode_set_target: "&fYour gamemode has been changed to &c{gamemode}&f!"
+  gamemode_set_sender: "&c{player}'s &fgamemode has been changed to &c{gamemode}&f!"
+

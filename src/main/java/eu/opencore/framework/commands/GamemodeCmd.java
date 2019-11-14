@@ -6,6 +6,8 @@ import eu.opencore.framework.chat.CommandHelp;
 import eu.opencore.framework.chat.Replacement;
 import eu.opencore.framework.files.OpenCoreFile;
 import eu.opencore.framework.language.Key;
+import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -30,7 +32,19 @@ public class GamemodeCmd implements CommandExecutor {
             Player player = (Player) sender;
             if (player.hasPermission("opencore.gamemode")) {
                 if (args.length <= 2) {
-                    // Continue
+                    if (args.length == 1) {
+                        setGameMode(player, sender, args[0]);
+                    } else if (args.length == 2) {
+                        try {
+                            Player target = Bukkit.getPlayer(args[1]);
+
+                            setGameMode(target, player, args[0]);
+                        } catch (Exception exception) {
+                            chatUtil.sendToConsole(Key.INPUT_MISMATCH, new Replacement());
+                        }
+                    } else {
+                        commandHelp.sendCommandUsage(sender, "gm <gm> <p>");
+                    }
                 } else {
                     commandHelp.sendCommandUsage(sender, "gm <gm> <p>");
                 }
@@ -39,11 +53,42 @@ public class GamemodeCmd implements CommandExecutor {
             }
         } else if (sender instanceof ConsoleCommandSender) {
             if (args.length == 2) {
-                // Continue
+                try {
+                    Player target = Bukkit.getPlayer(args[1]);
+
+                    setGameMode(target, sender, args[0]);
+                } catch (Exception exception) {
+                    chatUtil.sendToConsole(Key.INPUT_MISMATCH, new Replacement());
+                }
             } else {
                 commandHelp.sendCommandUsage(sender, "gm <gm> <p>");
             }
         }
         return true;
+    }
+
+    private void setGameMode(Player target, CommandSender sender, String gameModeAsString) {
+        OpenCoreFile configFile = new OpenCoreFile(instance, "config.yml");
+        ChatUtil chatUtil = new ChatUtil(configFile);
+        Replacement replacement = new Replacement();
+
+        if (gameModeAsString.equals("0")) gameModeAsString = "survival";
+        if (gameModeAsString.equals("1")) gameModeAsString = "creative";
+        if (gameModeAsString.equals("2")) gameModeAsString = "adventure";
+        if (gameModeAsString.equals("3")) gameModeAsString = "spectator";
+
+        try {
+            GameMode gameMode = GameMode.valueOf(gameModeAsString.toUpperCase());
+            target.setGameMode(gameMode);
+
+            replacement.setGamemode(gameModeAsString);
+            replacement.setPlayer(target.getName());
+
+            chatUtil.sendToSender(sender, Key.GAMEMODE_SET_SENDER, replacement);
+            chatUtil.sendToPlayer(target, Key.GAMEMODE_SET_TARGET, replacement);
+
+        } catch (Exception exception) {
+            chatUtil.sendToSender(sender, Key.INPUT_MISMATCH, replacement);
+        }
     }
 }

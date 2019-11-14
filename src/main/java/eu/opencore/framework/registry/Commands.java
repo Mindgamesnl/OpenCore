@@ -22,5 +22,7 @@ public class Commands {
         gamemodeAliases.add("gm");
         instance.getCommand("gamemode").setAliases(gamemodeAliases);
 
+        //
+
     }
 }
