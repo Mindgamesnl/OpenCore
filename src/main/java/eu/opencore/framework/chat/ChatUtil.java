@@ -16,7 +16,7 @@ public class ChatUtil {
     }
 
     public void sendToPlayer(Player player, Key key, Replacement replacement) {
-        String message = getKeyString(key, replacement);
+        String message = getKeyString(key, replacement, player);
 
         player.sendMessage(message);
     }
@@ -38,18 +38,37 @@ public class ChatUtil {
     }
 
     public void broadcastMessage(Key key, Replacement replacement) {
-        String message = getKeyString(key, replacement);
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            sendToPlayer(player, key, replacement);
+        }
 
-        Bukkit.broadcastMessage(message);
+        sendToConsole(key, replacement);
+    }
+
+    private String getKeyString(Key key, Replacement replacement, Player player) {
+        KeyString keyString = new KeyString(key, configFile, player);
+        keyString = setReplacements(keyString, replacement);
+
+        return keyString.getKeyString();
     }
 
     private String getKeyString(Key key, Replacement replacement) {
-        KeyString keyString = new KeyString(key, configFile);
+        KeyString keyString = new KeyString(key, configFile, null);
+        keyString = setReplacements(keyString, replacement);
+
+        return keyString.getKeyString();
+    }
+
+    private KeyString setReplacements(KeyString keyString, Replacement replacement) {
         keyString.replace("{player}", replacement.getPlayer());
         keyString.replace("{usage}", replacement.getUsage());
         keyString.replace("{gamemode}", replacement.getGamemode());
+        keyString.replace("{language}", replacement.getLanguage());
+        return keyString;
+    }
 
-        return keyString.getKeyString();
+    public static String replaceColorCodes(String input) {
+        return input.replace("&", "§");
     }
 
 }

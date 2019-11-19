@@ -72,10 +72,10 @@ public class GamemodeCmd implements CommandExecutor {
         ChatUtil chatUtil = new ChatUtil(configFile);
         Replacement replacement = new Replacement();
 
-        if (gameModeAsString.equals("0")) gameModeAsString = "survival";
-        if (gameModeAsString.equals("1")) gameModeAsString = "creative";
-        if (gameModeAsString.equals("2")) gameModeAsString = "adventure";
-        if (gameModeAsString.equals("3")) gameModeAsString = "spectator";
+        if (gameModeAsString.equals("0") || gameModeAsString.equals("s")) gameModeAsString = "survival";
+        if (gameModeAsString.equals("1") || gameModeAsString.equals("c")) gameModeAsString = "creative";
+        if (gameModeAsString.equals("2") || gameModeAsString.equals("a")) gameModeAsString = "adventure";
+        if (gameModeAsString.equals("3") || gameModeAsString.equals("sp")) gameModeAsString = "spectator";
 
         try {
             GameMode gameMode = GameMode.valueOf(gameModeAsString.toUpperCase());

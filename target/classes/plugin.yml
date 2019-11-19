@@ -7,3 +7,6 @@ commands:
   gamemode:
     usage: /<command>
     aliases: gm
+  language:
+    usage: /<command>
+    aliases: lang

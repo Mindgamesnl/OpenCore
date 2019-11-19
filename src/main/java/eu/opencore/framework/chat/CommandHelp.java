@@ -31,7 +31,7 @@ public class CommandHelp {
         try {
             return commandUsages.get(command.toLowerCase());
         } catch (NullPointerException exception) {
-            return new KeyString(Key.COMMAND_USAGE_NOT_FOUND, file).getKeyString();
+            return new KeyString(Key.COMMAND_USAGE_NOT_FOUND, file, null).getKeyString();
         }
     }
 

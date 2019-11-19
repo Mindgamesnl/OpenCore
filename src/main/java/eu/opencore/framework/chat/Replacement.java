@@ -5,6 +5,7 @@ public class Replacement {
     private String player;
     private String usage;
     private String gamemode;
+    private String language;
 
     public Replacement() {
 
@@ -16,7 +17,6 @@ public class Replacement {
     public void setPlayer(String player) {
         this.player = player;
     }
-
 
 
     public String getUsage() {
@@ -34,4 +34,12 @@ public class Replacement {
         this.gamemode = gamemode;
     }
 
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
 }

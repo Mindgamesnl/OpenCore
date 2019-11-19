@@ -1,6 +1,8 @@
 package eu.opencore.framework.language;
 
 import eu.opencore.framework.files.OpenCoreFile;
+import eu.opencore.framework.player.OpenCorePlayer;
+import org.bukkit.entity.Player;
 
 public class KeyString {
 
@@ -11,18 +13,26 @@ public class KeyString {
 
     private String keyString;
 
-    public KeyString(Key key, OpenCoreFile file) {
+    private Player player;
+
+    public KeyString(Key key, OpenCoreFile file, Player player) {
         this.key = key;
         this.file = file;
+        this.player = player;
 
         this.keyString = getKeyFromFile();
     }
 
     private String getKeyFromFile() {
-        return file.get().getString(key.getKey());
+        String language = "en";
+        if (player != null) {
+            language = OpenCorePlayer.players.get(player.getUniqueId()).getLanguage();
+        }
+
+        return file.get().getString(language + "_" + key.getKey());
     }
 
-    private String replaceColorCodes() {
+    public String replaceColorCodes() {
         keyString = keyString.replace("&", "§");
         return keyString;
     }
