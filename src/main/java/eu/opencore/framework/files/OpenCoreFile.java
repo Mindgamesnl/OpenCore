@@ -51,7 +51,7 @@ public class OpenCoreFile {
     }
 
     // Load/create file
-    public void load() {
+    public synchronized void load() {
         // Create plugin folder if it doesn't exists
         if (!instance.getDataFolder().exists()) {
             instance.getDataFolder().mkdir();
@@ -65,8 +65,12 @@ public class OpenCoreFile {
                 // Create file
                 file.createNewFile();
 
-                // Save default
-                instance.saveResource(fileName, true);
+                try {
+                    // Save default
+                    instance.saveResource(fileName, true);
+                } catch (IllegalArgumentException illegalArgumentException) {
+
+                }
 
                 // Load file
                 this.fileConfiguration = YamlConfiguration.loadConfiguration(file);
@@ -76,6 +80,8 @@ public class OpenCoreFile {
             } catch (IOException exception) {
                 // Error message
                 Bukkit.getConsoleSender().sendMessage("§fCouldn't load file §c" + fileName + "§f!");
+
+                exception.printStackTrace();
             }
         } else {
             // Load file

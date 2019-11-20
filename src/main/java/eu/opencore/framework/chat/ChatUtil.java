@@ -1,18 +1,18 @@
 package eu.opencore.framework.chat;
 
-import eu.opencore.framework.files.OpenCoreFile;
-import eu.opencore.framework.language.KeyString;
+import eu.opencore.OpenCore;
 import eu.opencore.framework.language.Key;
+import eu.opencore.framework.language.KeyString;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class ChatUtil {
 
-    private OpenCoreFile configFile;
+    private OpenCore instance;
 
-    public ChatUtil(OpenCoreFile file) {
-        this.configFile = file;
+    public ChatUtil(OpenCore instance) {
+        this.instance = instance;
     }
 
     public void sendToPlayer(Player player, Key key, Replacement replacement) {
@@ -46,14 +46,14 @@ public class ChatUtil {
     }
 
     private String getKeyString(Key key, Replacement replacement, Player player) {
-        KeyString keyString = new KeyString(key, configFile, player);
+        KeyString keyString = new KeyString(instance, key, player);
         keyString = setReplacements(keyString, replacement);
 
         return keyString.getKeyString();
     }
 
     private String getKeyString(Key key, Replacement replacement) {
-        KeyString keyString = new KeyString(key, configFile, null);
+        KeyString keyString = new KeyString(instance, key, null);
         keyString = setReplacements(keyString, replacement);
 
         return keyString.getKeyString();

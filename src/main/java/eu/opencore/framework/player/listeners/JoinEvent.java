@@ -3,7 +3,6 @@ package eu.opencore.framework.player.listeners;
 import eu.opencore.OpenCore;
 import eu.opencore.framework.chat.ChatUtil;
 import eu.opencore.framework.chat.Replacement;
-import eu.opencore.framework.files.OpenCoreFile;
 import eu.opencore.framework.language.Key;
 import eu.opencore.framework.player.OpenCorePlayer;
 import org.bukkit.entity.Player;
@@ -26,9 +25,7 @@ public class JoinEvent implements Listener  {
         OpenCorePlayer openCorePlayer = new OpenCorePlayer(instance, player.getUniqueId());
         OpenCorePlayer.players.put(player.getUniqueId(), openCorePlayer);
 
-        OpenCoreFile configFile = new OpenCoreFile(instance, "config.yml");
-
-        ChatUtil chatUtil = new ChatUtil(configFile);
+        ChatUtil chatUtil = new ChatUtil(instance);
 
         Replacement replacement = new Replacement();
         replacement.setPlayer(player.getName());

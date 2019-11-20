@@ -1,0 +1,18 @@
+player_only: "&cThis command is only available for players!"
+permission_error: "&cYou are not allowed to do this!"
+input_mismatch: "&cInvalid arguments!"
+
+player_join: "&c{player} &fjoined!"
+player_leave: "&c{player} &fleft!"
+
+command_usage_not_found: "&cCommand usage not found!"
+correct_command_usage: "&cWrong usage! Use &f/{usage}&c!"
+
+gamemode_set_target: "&fYour gamemode has been changed to &c{gamemode}&f!"
+gamemode_set_sender: "&c{player}'s &fgamemode has been changed to &c{gamemode}&f!"
+
+inventory_select_language_title: "&c&lSelect a language"
+inventory_select_language_success: "&fYou changed your language to &c{language}&f!"
+inventory_select_language_same: "&cYour language is already set to {language}!"
+
+player_loaded: "&fLoaded &c{player}&f's data"

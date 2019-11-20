@@ -27,23 +27,24 @@ public class OpenCorePlayer {
 
         loadPlayerData();
 
-        ChatUtil chatUtil = new ChatUtil(new OpenCoreFile(instance, "config.yml"));
+        ChatUtil chatUtil = new ChatUtil(instance);
         Replacement replacement = new Replacement();
         replacement.setPlayer(Bukkit.getPlayer(uuid).getName());
         chatUtil.sendToConsole(Key.PLAYER_LOADED, replacement);
     }
 
     private void loadPlayerData() {
-        OpenCoreFile playerDataFile = new OpenCoreFile(instance, "playerdata.yml");
+        OpenCoreFile playerFile = new OpenCoreFile(instance, "playerdata/" + uuid + ".yml");
 
-        if (!playerDataFile.get().contains(uuid.toString())) {
-            playerDataFile.get().set(uuid.toString() + ".language", "en");
-            playerDataFile.get().set(uuid.toString() + ".balance", 0);
-            playerDataFile.save();
+        if (!playerFile.get().contains("registered")) {
+            playerFile.get().set("registered", true);
+            playerFile.get().set("language", "en");
+            playerFile.get().set("balance", 0);
+            playerFile.save();
         }
 
-        this.language = playerDataFile.get().getString(uuid.toString() + ".language");
-        this.balance = playerDataFile.get().getInt(uuid.toString() + ".balance");
+        this.language = playerFile.get().getString("language");
+        this.balance = playerFile.get().getInt("balance");
     }
 
     public String getLanguage() {
@@ -68,10 +69,10 @@ public class OpenCorePlayer {
     }
 
     private void updatePlayerData() {
-        OpenCoreFile playerDataFile = new OpenCoreFile(instance, "playerdata.yml");
+        OpenCoreFile playerFile = new OpenCoreFile(instance, "playerdata/" + uuid + ".yml");
 
-        playerDataFile.get().set(uuid.toString() + ".language", this.language);
-        playerDataFile.get().set(uuid.toString() + ".balance", this.balance);
-        playerDataFile.save();
+        playerFile.get().set("language", this.language);
+        playerFile.get().set("balance", this.balance);
+        playerFile.save();
     }
 }

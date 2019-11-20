@@ -34,7 +34,7 @@ public class SelectLanguageInventory implements InventoryHolder {
         this.player = player;
 
         OpenCoreFile configFile = new OpenCoreFile(instance, "config.yml");
-        String inventoryTitle = new KeyString(Key.INVENTORY_SELECT_LANGUAGE_TITLE, configFile, player).replaceColorCodes();
+        String inventoryTitle = new KeyString(instance, Key.INVENTORY_SELECT_LANGUAGE_TITLE, player).replaceColorCodes();
         this.inventory = Bukkit.createInventory(this, 3 * 9, inventoryTitle);
 
         // 10 to 16
@@ -70,23 +70,28 @@ public class SelectLanguageInventory implements InventoryHolder {
 
     public void onClick(ItemStack clickedItemStack, Player clicker) {
         ItemMeta itemMeta = clickedItemStack.getItemMeta();
-        String lore = itemMeta.getLore().get(0);
 
-        OpenCorePlayer openCorePlayer = OpenCorePlayer.players.get(clicker.getUniqueId());
-        String currentLanguage = openCorePlayer.getLanguage();
+        try {
+            String lore = itemMeta.getLore().get(0);
 
-        ChatUtil chatUtil = new ChatUtil(new OpenCoreFile(instance, "config.yml"));
-        Replacement replacement = new Replacement();
+            OpenCorePlayer openCorePlayer = OpenCorePlayer.players.get(clicker.getUniqueId());
+            String currentLanguage = openCorePlayer.getLanguage();
 
-        if (!currentLanguage.equals(lore)) {
-            openCorePlayer.setLanguage(lore);
-            OpenCorePlayer.players.put(player.getUniqueId(), openCorePlayer);
+            ChatUtil chatUtil = new ChatUtil(instance);
+            Replacement replacement = new Replacement();
 
-            replacement.setLanguage(ChatColor.stripColor(itemMeta.getDisplayName()));
-            chatUtil.sendToPlayer(player, Key.INVENTORY_SELECT_LANGUAGE_SUCCESS, replacement);
-        } else {
-            replacement.setLanguage(ChatColor.stripColor(itemMeta.getDisplayName()));
-            chatUtil.sendToPlayer(player, Key.INVENTORY_SELECT_LANGUAGE_SAME, replacement);
+            if (!currentLanguage.equals(lore)) {
+                openCorePlayer.setLanguage(lore);
+                OpenCorePlayer.players.put(player.getUniqueId(), openCorePlayer);
+
+                replacement.setLanguage(ChatColor.stripColor(itemMeta.getDisplayName()));
+                chatUtil.sendToPlayer(player, Key.INVENTORY_SELECT_LANGUAGE_SUCCESS, replacement);
+            } else {
+                replacement.setLanguage(ChatColor.stripColor(itemMeta.getDisplayName()));
+                chatUtil.sendToPlayer(player, Key.INVENTORY_SELECT_LANGUAGE_SAME, replacement);
+            }
+        } catch (Exception exception) {
+            exception.printStackTrace();
         }
 
         clicker.closeInventory();

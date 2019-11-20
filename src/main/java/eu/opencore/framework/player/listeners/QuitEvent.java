@@ -3,7 +3,6 @@ package eu.opencore.framework.player.listeners;
 import eu.opencore.OpenCore;
 import eu.opencore.framework.chat.ChatUtil;
 import eu.opencore.framework.chat.Replacement;
-import eu.opencore.framework.files.OpenCoreFile;
 import eu.opencore.framework.language.Key;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -22,9 +21,7 @@ public class QuitEvent implements Listener {
     public void onQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
 
-        OpenCoreFile configFile = new OpenCoreFile(instance, "config.yml");
-
-        ChatUtil chatUtil = new ChatUtil(configFile);
+        ChatUtil chatUtil = new ChatUtil(instance);
 
         Replacement replacement = new Replacement();
         replacement.setPlayer(player.getName());

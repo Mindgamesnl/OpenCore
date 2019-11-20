@@ -1,40 +1,52 @@
 package eu.opencore.framework.language;
 
+import eu.opencore.OpenCore;
 import eu.opencore.framework.files.OpenCoreFile;
-import eu.opencore.framework.player.OpenCorePlayer;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 public class KeyString {
 
     private String ERROR_MESSAGE = "Error occurred while converting string!";
 
+
     private Key key;
-    private OpenCoreFile file;
+    private OpenCoreFile languageFile;
 
     private String keyString;
+    private String language;
 
-    private Player player;
-
-    public KeyString(Key key, OpenCoreFile file, Player player) {
+    public KeyString(OpenCore instance, Key key, Player player) {
         this.key = key;
-        this.file = file;
-        this.player = player;
 
-        this.keyString = getKeyFromFile();
+        if (player != null) {
+            OpenCoreFile playerDataFile = new OpenCoreFile(instance, "playerdata/" + player.getUniqueId() + ".yml");
+            this.language = playerDataFile.get().getString("language");
+        } else {
+            this.language = "en";
+        }
+
+        languageFile = new OpenCoreFile(instance, "languages/" + language + ".yml");
+
+        try {
+            this.keyString = getKeyFromFile();
+            this.keyString = replaceColorCodes();
+        } catch (Exception exception) {
+            if (player != null) {
+                player.sendMessage("Something went wrong, " + key.getKey() + " couldn't be loaded.");
+            } else {
+                Bukkit.getConsoleSender().sendMessage("Something went wrong, " + key.getKey() + " couldn't be loaded.");
+            }
+        }
+
     }
 
     private String getKeyFromFile() {
-        String language = "en";
-        if (player != null) {
-            language = OpenCorePlayer.players.get(player.getUniqueId()).getLanguage();
-        }
-
-        return file.get().getString(language + "_" + key.getKey());
+        return languageFile.get().getString(key.getKey());
     }
 
     public String replaceColorCodes() {
-        keyString = keyString.replace("&", "§");
-        return keyString;
+        return keyString.replace('&', '§');
     }
 
 

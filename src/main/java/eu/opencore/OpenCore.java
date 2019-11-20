@@ -1,6 +1,7 @@
 package eu.opencore;
 
 import eu.opencore.framework.files.OpenCoreFile;
+import eu.opencore.framework.files.OpenCoreFolder;
 import eu.opencore.framework.player.OpenCorePlayer;
 import eu.opencore.framework.registry.Commands;
 import eu.opencore.framework.registry.Listeners;
@@ -15,11 +16,22 @@ public class OpenCore extends JavaPlugin {
     public void onEnable() {
         instance = this;
 
-        OpenCoreFile configFile = new OpenCoreFile(instance, "config.yml");
+        OpenCoreFile configFile = new OpenCoreFile(this, "config.yml");
         configFile.load();
 
-        OpenCoreFile playerDataFile = new OpenCoreFile(instance, "playerdata.yml");
-        playerDataFile.load();
+        OpenCoreFolder languageFolder = new OpenCoreFolder(this, "languages");
+        languageFolder.load();
+
+        OpenCoreFolder playerDataFolder = new OpenCoreFolder(this, "playerdata");
+        playerDataFolder.load();
+
+        // Load language files
+        OpenCoreFile language;
+        language = new OpenCoreFile(this, "languages/en.yml");
+        language.load();
+        language = new OpenCoreFile(this, "languages/nl.yml");
+        language.load();
+
 
         Listeners listeners = new Listeners(instance);
         listeners.register();

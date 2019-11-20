@@ -2,10 +2,12 @@ package eu.opencore.framework.player.listeners;
 
 import eu.opencore.OpenCore;
 import eu.opencore.framework.inventories.SelectLanguageInventory;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.ItemStack;
 
 public class InvClickEvent implements Listener {
 
@@ -21,7 +23,7 @@ public class InvClickEvent implements Listener {
             if (event.getWhoClicked() instanceof Player) {
                 Player player = (Player) event.getWhoClicked();
 
-                if (event.getCurrentItem() != null) {
+                if (event.getCurrentItem() != null && !event.getCurrentItem().equals(new ItemStack(Material.AIR))) {
                     ((SelectLanguageInventory) event.getClickedInventory().getHolder()).onClick(event.getCurrentItem(), player);
                 }
             }

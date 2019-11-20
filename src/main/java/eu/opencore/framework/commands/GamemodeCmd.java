@@ -26,7 +26,7 @@ public class GamemodeCmd implements CommandExecutor {
         CommandHelp commandHelp = new CommandHelp(instance);
         commandHelp.setCommandUsage("gm <gm> <p>", "gamemode <gamemode> <player>");
 
-        ChatUtil chatUtil = new ChatUtil(new OpenCoreFile(instance, "config.yml"));
+        ChatUtil chatUtil = new ChatUtil(instance);
 
         if (sender instanceof Player) {
             Player player = (Player) sender;
@@ -69,7 +69,7 @@ public class GamemodeCmd implements CommandExecutor {
 
     private void setGameMode(Player target, CommandSender sender, String gameModeAsString) {
         OpenCoreFile configFile = new OpenCoreFile(instance, "config.yml");
-        ChatUtil chatUtil = new ChatUtil(configFile);
+        ChatUtil chatUtil = new ChatUtil(instance);
         Replacement replacement = new Replacement();
 
         if (gameModeAsString.equals("0") || gameModeAsString.equals("s")) gameModeAsString = "survival";

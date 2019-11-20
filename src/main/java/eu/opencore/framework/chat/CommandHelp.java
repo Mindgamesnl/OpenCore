@@ -31,14 +31,14 @@ public class CommandHelp {
         try {
             return commandUsages.get(command.toLowerCase());
         } catch (NullPointerException exception) {
-            return new KeyString(Key.COMMAND_USAGE_NOT_FOUND, file, null).getKeyString();
+            return new KeyString(instance, Key.COMMAND_USAGE_NOT_FOUND, null).getKeyString();
         }
     }
 
     public void sendCommandUsage(CommandSender sender, String command) {
         String commandUsage = getCommandUsage(command);
 
-        ChatUtil chatUtil = new ChatUtil(file);
+        ChatUtil chatUtil = new ChatUtil(instance);
         Replacement replacement = new Replacement();
         replacement.setUsage(commandUsage);
 
