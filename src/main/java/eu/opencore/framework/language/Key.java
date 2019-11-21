@@ -19,6 +19,7 @@ public enum Key {
     INVENTORY_SELECT_LANGUAGE_TITLE("inventory_select_language_title"),
     INVENTORY_SELECT_LANGUAGE_SUCCESS("inventory_select_language_success"),
     INVENTORY_SELECT_LANGUAGE_SAME("inventory_select_language_same"),
+    INVENTORY_SELECT_LANGUAGE_INVALID("inventory_select_language_invalid"),
 
     PLAYER_LOADED("player_loaded"),
 

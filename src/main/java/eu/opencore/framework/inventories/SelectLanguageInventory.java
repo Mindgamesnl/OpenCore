@@ -3,9 +3,9 @@ package eu.opencore.framework.inventories;
 import eu.opencore.OpenCore;
 import eu.opencore.framework.chat.ChatUtil;
 import eu.opencore.framework.chat.Replacement;
-import eu.opencore.framework.files.OpenCoreFile;
 import eu.opencore.framework.language.Key;
 import eu.opencore.framework.language.KeyString;
+import eu.opencore.framework.language.Language;
 import eu.opencore.framework.player.OpenCorePlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -33,7 +33,6 @@ public class SelectLanguageInventory implements InventoryHolder {
 
         this.player = player;
 
-        OpenCoreFile configFile = new OpenCoreFile(instance, "config.yml");
         String inventoryTitle = new KeyString(instance, Key.INVENTORY_SELECT_LANGUAGE_TITLE, player).replaceColorCodes();
         this.inventory = Bukkit.createInventory(this, 3 * 9, inventoryTitle);
 
@@ -42,7 +41,6 @@ public class SelectLanguageInventory implements InventoryHolder {
 
     public void open() {
         ItemStack itemStack = new ItemStack(Material.DIAMOND_BLOCK, 1);
-        ItemMeta itemMeta = itemStack.getItemMeta();
 
         for (int i = 0; i <= 6; i++) {
             try {
@@ -56,13 +54,10 @@ public class SelectLanguageInventory implements InventoryHolder {
         player.openInventory(this.inventory);
     }
 
-    public void addItem(String languageName, String displayName, Material material) {
+    public void addItem(String displayName, Material material) {
         ItemStack itemStack = new ItemStack(material);
         ItemMeta itemMeta = itemStack.getItemMeta();
         itemMeta.setDisplayName(ChatUtil.replaceColorCodes(displayName));
-        List<String> lore = new ArrayList<>();
-        lore.add(languageName);
-        itemMeta.setLore(lore);
         itemStack.setItemMeta(itemMeta);
 
         this.languageItems.add(itemStack);
@@ -71,17 +66,17 @@ public class SelectLanguageInventory implements InventoryHolder {
     public void onClick(ItemStack clickedItemStack, Player clicker) {
         ItemMeta itemMeta = clickedItemStack.getItemMeta();
 
+        ChatUtil chatUtil = new ChatUtil(instance);
+        Replacement replacement = new Replacement();
+
         try {
-            String lore = itemMeta.getLore().get(0);
+            String language = Language.getLanguageByName(ChatColor.stripColor(itemMeta.getDisplayName())).getComplexName();
 
             OpenCorePlayer openCorePlayer = OpenCorePlayer.players.get(clicker.getUniqueId());
             String currentLanguage = openCorePlayer.getLanguage();
 
-            ChatUtil chatUtil = new ChatUtil(instance);
-            Replacement replacement = new Replacement();
-
-            if (!currentLanguage.equals(lore)) {
-                openCorePlayer.setLanguage(lore);
+            if (!currentLanguage.equals(language)) {
+                openCorePlayer.setLanguage(language);
                 OpenCorePlayer.players.put(player.getUniqueId(), openCorePlayer);
 
                 replacement.setLanguage(ChatColor.stripColor(itemMeta.getDisplayName()));
@@ -91,7 +86,7 @@ public class SelectLanguageInventory implements InventoryHolder {
                 chatUtil.sendToPlayer(player, Key.INVENTORY_SELECT_LANGUAGE_SAME, replacement);
             }
         } catch (Exception exception) {
-            exception.printStackTrace();
+            chatUtil.sendToPlayer(clicker, Key.INVENTORY_SELECT_LANGUAGE_INVALID, replacement);
         }
 
         clicker.closeInventory();

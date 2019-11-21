@@ -74,5 +74,7 @@ public class OpenCorePlayer {
         playerFile.get().set("language", this.language);
         playerFile.get().set("balance", this.balance);
         playerFile.save();
+
+        players.put(uuid, this);
     }
 }

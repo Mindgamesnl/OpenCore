@@ -1,0 +1,11 @@
+languages:
+  en:
+    languagename: English
+    filename: en
+    item: EMERALD_BLOCK
+    displayname: "&c&lEnglish"
+  nl:
+    languagename: Nederlands
+    filename: nl
+    item: DIAMOND_BLOCK
+    displayname: "&6&lNederlands"

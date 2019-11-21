@@ -4,7 +4,6 @@ import eu.opencore.OpenCore;
 import eu.opencore.framework.chat.ChatUtil;
 import eu.opencore.framework.chat.CommandHelp;
 import eu.opencore.framework.chat.Replacement;
-import eu.opencore.framework.files.OpenCoreFile;
 import eu.opencore.framework.language.Key;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -68,7 +67,6 @@ public class GamemodeCmd implements CommandExecutor {
     }
 
     private void setGameMode(Player target, CommandSender sender, String gameModeAsString) {
-        OpenCoreFile configFile = new OpenCoreFile(instance, "config.yml");
         ChatUtil chatUtil = new ChatUtil(instance);
         Replacement replacement = new Replacement();
 

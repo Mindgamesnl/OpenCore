@@ -14,5 +14,6 @@ gamemode_set_sender: "&c{player}'s &fgamemode has been changed to &c{gamemode}&f
 inventory_select_language_title: "&c&lSelect a language"
 inventory_select_language_success: "&fYou changed your language to &c{language}&f!"
 inventory_select_language_same: "&cYour language is already set to {language}!"
+inventory_select_language_invalid: "&cInvalid language!"
 
 player_loaded: "&fLoaded &c{player}&f's data"

@@ -2,7 +2,7 @@ package eu.opencore.framework.language;
 
 import eu.opencore.OpenCore;
 import eu.opencore.framework.files.OpenCoreFile;
-import org.bukkit.Bukkit;
+import eu.opencore.framework.player.OpenCorePlayer;
 import org.bukkit.entity.Player;
 
 public class KeyString {
@@ -28,16 +28,38 @@ public class KeyString {
 
         languageFile = new OpenCoreFile(instance, "languages/" + language + ".yml");
 
-        try {
-            this.keyString = getKeyFromFile();
-            this.keyString = replaceColorCodes();
-        } catch (Exception exception) {
-            if (player != null) {
-                player.sendMessage("Something went wrong, " + key.getKey() + " couldn't be loaded.");
-            } else {
-                Bukkit.getConsoleSender().sendMessage("Something went wrong, " + key.getKey() + " couldn't be loaded.");
+        int retries = 1;
+        int count = 0;
+
+        while (count <= retries) {
+            try {
+
+                if (Language.getLanguageByName(this.language) == null) {
+                    OpenCorePlayer openCorePlayer = OpenCorePlayer.players.get(player.getUniqueId());
+                    this.language = "en";
+                    openCorePlayer.setLanguage(this.language);
+
+                    languageFile = new OpenCoreFile(instance, "languages/" + language + ".yml");
+                }
+
+                this.keyString = getKeyFromFile();
+                this.keyString = replaceColorCodes();
+
+                count += 10;
+            } catch (Exception exception) {
+                if (player != null) {
+                    player.sendMessage("Something went wrong, " + key.getKey() + " couldn't be loaded. (Language: " + this.language + ")");
+
+                    if (Language.getLanguageByName(this.language) == null) {
+                        OpenCorePlayer openCorePlayer = OpenCorePlayer.players.get(player.getUniqueId());
+                        openCorePlayer.setLanguage("en");
+                    }
+                }
+
+                count++;
             }
         }
+
 
     }
 
@@ -46,7 +68,13 @@ public class KeyString {
     }
 
     public String replaceColorCodes() {
-        return keyString.replace('&', '§');
+        String replaced;
+        try {
+            replaced = keyString.replace('&', '§');
+        } catch (NullPointerException exception) {
+            replaced = null;
+        }
+        return replaced;
     }
 
 

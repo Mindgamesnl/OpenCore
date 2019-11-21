@@ -1,7 +1,6 @@
 package eu.opencore.framework.chat;
 
 import eu.opencore.OpenCore;
-import eu.opencore.framework.files.OpenCoreFile;
 import eu.opencore.framework.language.Key;
 import eu.opencore.framework.language.KeyString;
 import org.bukkit.command.CommandSender;
@@ -13,13 +12,11 @@ import java.util.HashMap;
 public class CommandHelp {
 
     private OpenCore instance;
-    private OpenCoreFile file;
 
     private HashMap<String, String> commandUsages;
 
     public CommandHelp(OpenCore instance) {
         this.instance = instance;
-        this.file = new OpenCoreFile(instance, "config.yml");
         this.commandUsages = new HashMap<>();
     }
 
