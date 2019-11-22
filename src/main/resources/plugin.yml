@@ -10,3 +10,5 @@ commands:
   language:
     usage: /<command>
     aliases: lang
+  fly:
+    usage: /<command>

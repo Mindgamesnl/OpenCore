@@ -16,6 +16,11 @@ public enum Key {
     GAMEMODE_SET_SENDER("gamemode_set_sender"),
     GAMEMODE_SET_TARGET("gamemode_set_target"),
 
+    FLY_SET_ON_TARGET("fly_set_on_target"),
+    FLY_SET_ON_SENDER("fly_set_on_sender"),
+    FLY_SET_OFF_TARGET("fly_set_off_target"),
+    FLY_SET_OFF_SENDER("fly_set_off_sender"),
+
     INVENTORY_SELECT_LANGUAGE_TITLE("inventory_select_language_title"),
     INVENTORY_SELECT_LANGUAGE_SUCCESS("inventory_select_language_success"),
     INVENTORY_SELECT_LANGUAGE_SAME("inventory_select_language_same"),

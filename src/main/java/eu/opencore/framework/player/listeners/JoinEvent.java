@@ -29,8 +29,9 @@ public class JoinEvent implements Listener  {
 
         Replacement replacement = new Replacement();
         replacement.setPlayer(player.getName());
+        chatUtil.setReplacement(replacement);
 
-        chatUtil.broadcastMessage(Key.PLAYER_JOIN_MESSAGE, replacement);
+        chatUtil.broadcastMessage(Key.PLAYER_JOIN_MESSAGE);
 
 
         event.setJoinMessage(null);

@@ -2,7 +2,6 @@ package eu.opencore.framework.commands;
 
 import eu.opencore.OpenCore;
 import eu.opencore.framework.chat.ChatUtil;
-import eu.opencore.framework.chat.Replacement;
 import eu.opencore.framework.inventories.SelectLanguageInventory;
 import eu.opencore.framework.language.Key;
 import eu.opencore.framework.language.Language;
@@ -21,7 +20,6 @@ public class LanguageCmd implements CommandExecutor {
 
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         ChatUtil chatUtil = new ChatUtil(instance);
-        Replacement replacement = new Replacement();
 
         if (sender instanceof Player) {
             SelectLanguageInventory selectLanguageInventory = new SelectLanguageInventory(instance, (Player) sender);
@@ -32,7 +30,7 @@ public class LanguageCmd implements CommandExecutor {
 
             selectLanguageInventory.open();
         } else {
-            chatUtil.sendToConsole(Key.PLAYER_ONLY, replacement);
+            chatUtil.sendToConsole(Key.PLAYER_ONLY);
         }
 
         return true;

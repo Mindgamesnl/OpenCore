@@ -11,6 +11,11 @@ correct_command_usage: "&cVerkeerd gebruikt! Gebruik &f/{usage}&c!"
 gamemode_set_target: "&fJe gamemode is veranderd naar &c{gamemode}&f!"
 gamemode_set_sender: "&c{player}'s &fgamemode is veranderd naar &c{gamemode}&f!"
 
+fly_set_on_target: "&fJe kan nu vliegen!"
+fly_set_on_sender: "&c{player}'s &fkan nu vliegen!"
+fly_set_off_target: "&fJe kan nu niet meer vliegen!"
+fly_set_off_sender: "&c{player}'s &fkan nu niet meer vliegen!"
+
 inventory_select_language_title: "&c&lSelecteer een taal"
 inventory_select_language_success: "&fJe hebt je taal veranderd naar &c{language}&f!"
 inventory_select_language_same: "&cJe taal staat al op {language}!"

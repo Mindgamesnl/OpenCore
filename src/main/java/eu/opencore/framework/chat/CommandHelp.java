@@ -40,9 +40,10 @@ public class CommandHelp {
         replacement.setUsage(commandUsage);
 
         if (sender instanceof Player) {
-            chatUtil.sendToPlayer((Player) sender, Key.CORRECT_COMMAND_USAGE, replacement);
+            chatUtil.setReplacement(replacement);
+            chatUtil.sendToPlayer((Player) sender, Key.CORRECT_COMMAND_USAGE);
         } else if (sender instanceof ConsoleCommandSender) {
-            chatUtil.sendToConsole(Key.CORRECT_COMMAND_USAGE, replacement);
+            chatUtil.sendToConsole(Key.CORRECT_COMMAND_USAGE);
         }
     }
 

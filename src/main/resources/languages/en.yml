@@ -11,6 +11,11 @@ correct_command_usage: "&cWrong usage! Use &f/{usage}&c!"
 gamemode_set_target: "&fYour gamemode has been changed to &c{gamemode}&f!"
 gamemode_set_sender: "&c{player}'s &fgamemode has been changed to &c{gamemode}&f!"
 
+fly_set_on_target: "&fYour fly has been turned &aon&f!"
+fly_set_on_sender: "&c{player}'s &ffly has been turned &aon&f!"
+fly_set_off_target: "&fYour fly has been turned &coff&f!"
+fly_set_off_sender: "&c{player}'s &ffly has been turned &coff&f!"
+
 inventory_select_language_title: "&c&lSelect a language"
 inventory_select_language_success: "&fYou changed your language to &c{language}&f!"
 inventory_select_language_same: "&cYour language is already set to {language}!"

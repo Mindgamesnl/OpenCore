@@ -34,12 +34,16 @@ public class GamemodeCmd implements CommandExecutor {
                     if (args.length == 1) {
                         setGameMode(player, sender, args[0]);
                     } else if (args.length == 2) {
-                        try {
-                            Player target = Bukkit.getPlayer(args[1]);
+                        if (player.hasPermission("opencore.gamemode.others")) {
+                            try {
+                                Player target = Bukkit.getPlayer(args[1]);
 
-                            setGameMode(target, player, args[0]);
-                        } catch (Exception exception) {
-                            chatUtil.sendToConsole(Key.INPUT_MISMATCH, new Replacement());
+                                setGameMode(target, player, args[0]);
+                            } catch (Exception exception) {
+                                chatUtil.sendToConsole(Key.INPUT_MISMATCH);
+                            }
+                        } else {
+                            chatUtil.sendToPlayer(player, Key.PERMISSION_ERROR);
                         }
                     } else {
                         commandHelp.sendCommandUsage(sender, "gm <gm> <p>");
@@ -48,7 +52,7 @@ public class GamemodeCmd implements CommandExecutor {
                     commandHelp.sendCommandUsage(sender, "gm <gm> <p>");
                 }
             } else {
-                chatUtil.sendToPlayer(player, Key.PERMISSION_ERROR, new Replacement());
+                chatUtil.sendToPlayer(player, Key.PERMISSION_ERROR);
             }
         } else if (sender instanceof ConsoleCommandSender) {
             if (args.length == 2) {
@@ -57,7 +61,7 @@ public class GamemodeCmd implements CommandExecutor {
 
                     setGameMode(target, sender, args[0]);
                 } catch (Exception exception) {
-                    chatUtil.sendToConsole(Key.INPUT_MISMATCH, new Replacement());
+                    chatUtil.sendToConsole(Key.INPUT_MISMATCH);
                 }
             } else {
                 commandHelp.sendCommandUsage(sender, "gm <gm> <p>");
@@ -82,11 +86,12 @@ public class GamemodeCmd implements CommandExecutor {
             replacement.setGamemode(gameModeAsString);
             replacement.setPlayer(target.getName());
 
-            chatUtil.sendToSender(sender, Key.GAMEMODE_SET_SENDER, replacement);
-            chatUtil.sendToPlayer(target, Key.GAMEMODE_SET_TARGET, replacement);
+            chatUtil.setReplacement(replacement);
+            chatUtil.sendToSender(sender, Key.GAMEMODE_SET_SENDER);
+            chatUtil.sendToPlayer(target, Key.GAMEMODE_SET_TARGET);
 
         } catch (Exception exception) {
-            chatUtil.sendToSender(sender, Key.INPUT_MISMATCH, replacement);
+            chatUtil.sendToSender(sender, Key.INPUT_MISMATCH);
         }
     }
 }

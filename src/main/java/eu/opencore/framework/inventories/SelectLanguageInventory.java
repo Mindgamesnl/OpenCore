@@ -80,13 +80,17 @@ public class SelectLanguageInventory implements InventoryHolder {
                 OpenCorePlayer.players.put(player.getUniqueId(), openCorePlayer);
 
                 replacement.setLanguage(ChatColor.stripColor(itemMeta.getDisplayName()));
-                chatUtil.sendToPlayer(player, Key.INVENTORY_SELECT_LANGUAGE_SUCCESS, replacement);
+                chatUtil.setReplacement(replacement);
+
+                chatUtil.sendToPlayer(player, Key.INVENTORY_SELECT_LANGUAGE_SUCCESS);
             } else {
                 replacement.setLanguage(ChatColor.stripColor(itemMeta.getDisplayName()));
-                chatUtil.sendToPlayer(player, Key.INVENTORY_SELECT_LANGUAGE_SAME, replacement);
+                chatUtil.setReplacement(replacement);
+
+                chatUtil.sendToPlayer(player, Key.INVENTORY_SELECT_LANGUAGE_SAME);
             }
         } catch (Exception exception) {
-            chatUtil.sendToPlayer(clicker, Key.INVENTORY_SELECT_LANGUAGE_INVALID, replacement);
+            chatUtil.sendToPlayer(clicker, Key.INVENTORY_SELECT_LANGUAGE_INVALID);
         }
 
         clicker.closeInventory();

@@ -11,50 +11,58 @@ public class ChatUtil {
 
     private OpenCore instance;
 
+    private Replacement replacement;
+
     public ChatUtil(OpenCore instance) {
         this.instance = instance;
     }
 
-    public void sendToPlayer(Player player, Key key, Replacement replacement) {
-        String message = getKeyString(key, replacement, player);
+    public void sendToPlayer(Player player, Key key) {
+        String message = getKeyString(key, player);
 
         player.sendMessage(message);
     }
 
-    public void sendToConsole(Key key, Replacement replacement) {
-        String message = getKeyString(key, replacement);
+    public void sendToConsole(Key key) {
+        String message = getKeyString(key);
 
         Bukkit.getConsoleSender().sendMessage(message);
     }
 
-    public void sendToSender(CommandSender sender, Key key, Replacement replacement) {
-        String message = getKeyString(key, replacement);
+    public void sendToSender(CommandSender sender, Key key) {
+        String message = getKeyString(key);
 
         if (sender instanceof Player) {
-            sendToPlayer((Player) sender, key, replacement);
+            sendToPlayer((Player) sender, key);
         } else {
-            sendToConsole(key, replacement);
+            sendToConsole(key);
         }
     }
 
-    public void broadcastMessage(Key key, Replacement replacement) {
+    public void broadcastMessage(Key key) {
         for (Player player : Bukkit.getOnlinePlayers()) {
-            sendToPlayer(player, key, replacement);
+            sendToPlayer(player, key);
         }
 
-        sendToConsole(key, replacement);
+        sendToConsole(key);
     }
 
-    private String getKeyString(Key key, Replacement replacement, Player player) {
+    private String getKeyString(Key key, Player player) {
         KeyString keyString = new KeyString(instance, key, player);
-        keyString = setReplacements(keyString, replacement);
+
+        if (this.replacement != null) {
+            keyString = setReplacements(keyString, replacement);
+        }
 
         return keyString.getKeyString();
     }
 
-    private String getKeyString(Key key, Replacement replacement) {
+    private String getKeyString(Key key) {
         KeyString keyString = new KeyString(instance, key, null);
-        keyString = setReplacements(keyString, replacement);
+
+        if (this.replacement != null) {
+            keyString = setReplacements(keyString, replacement);
+        }
 
         return keyString.getKeyString();
     }
@@ -71,4 +79,11 @@ public class ChatUtil {
         return input.replace("&", "§");
     }
 
+    public Replacement getReplacement() {
+        return replacement;
+    }
+
+    public void setReplacement(Replacement replacement) {
+        this.replacement = replacement;
+    }
 }

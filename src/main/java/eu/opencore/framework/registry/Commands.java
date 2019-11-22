@@ -1,6 +1,7 @@
 package eu.opencore.framework.registry;
 
 import eu.opencore.OpenCore;
+import eu.opencore.framework.commands.FlyCmd;
 import eu.opencore.framework.commands.GamemodeCmd;
 import eu.opencore.framework.commands.LanguageCmd;
 
@@ -29,6 +30,9 @@ public class Commands {
         List<String> languageAliases = new ArrayList<>();
         gamemodeAliases.add("lang");
         instance.getCommand("language").setAliases(gamemodeAliases);
+
+        // Fly command
+        instance.getCommand("fly").setExecutor(new FlyCmd(instance));
 
     }
 }

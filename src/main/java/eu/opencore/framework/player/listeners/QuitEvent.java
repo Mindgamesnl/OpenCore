@@ -25,8 +25,9 @@ public class QuitEvent implements Listener {
 
         Replacement replacement = new Replacement();
         replacement.setPlayer(player.getName());
+        chatUtil.setReplacement(replacement);
 
-        chatUtil.broadcastMessage(Key.PLAYER_QUIT_MESSAGE, replacement);
+        chatUtil.broadcastMessage(Key.PLAYER_QUIT_MESSAGE);
 
         event.setQuitMessage(null);
     }
