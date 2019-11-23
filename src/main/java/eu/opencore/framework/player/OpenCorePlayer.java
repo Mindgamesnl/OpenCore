@@ -9,12 +9,15 @@ import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 
 public class OpenCorePlayer {
 
     public static HashMap<UUID, OpenCorePlayer> players = new HashMap<>();
+    public static List<UUID> vanishedPlayers = new ArrayList<>();
 
     private OpenCore instance;
 
@@ -23,6 +26,7 @@ public class OpenCorePlayer {
     private String language;
     private Integer balance;
     private boolean hasFly;
+    private boolean isVanished;
 
     public OpenCorePlayer(OpenCore instance, UUID uuid) {
         this.instance = instance;
@@ -100,6 +104,35 @@ public class OpenCorePlayer {
         }
 
         this.hasFly = fly;
+
+        updatePlayerData();
+    }
+
+    public boolean isVanished() {
+        return this.isVanished;
+    }
+
+    public void setVanished(boolean vanish) {
+        Player player = Bukkit.getPlayer(uuid);
+
+        if (vanish) {
+            // Vanish player
+            for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+                if (!onlinePlayer.hasPermission("opencore.vanish.seeothers")) {
+                    onlinePlayer.hidePlayer(instance, player);
+                }
+            }
+            vanishedPlayers.add(this.uuid);
+        }
+        if (!vanish) {
+            // Make player visible
+            for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+                onlinePlayer.showPlayer(instance, player);
+            }
+            vanishedPlayers.remove(this.uuid);
+        }
+
+        this.isVanished = vanish;
 
         updatePlayerData();
     }

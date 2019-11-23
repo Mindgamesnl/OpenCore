@@ -16,6 +16,11 @@ fly_set_on_sender: "&c{player}'s &ffly has been turned &aon&f!"
 fly_set_off_target: "&fYour fly has been turned &coff&f!"
 fly_set_off_sender: "&c{player}'s &ffly has been turned &coff&f!"
 
+vanish_set_on_target: "&fYou are now &ainvisible&f!"
+vanish_set_on_sender: "&c{player}'s &fis now invisible!"
+vanish_set_off_target: "&fYou are now &cvisible&f!"
+vanish_set_off_sender: "&c{player}'s &fis now visible!"
+
 inventory_select_language_title: "&c&lSelect a language"
 inventory_select_language_success: "&fYou changed your language to &c{language}&f!"
 inventory_select_language_same: "&cYour language is already set to {language}!"

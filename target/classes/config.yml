@@ -9,3 +9,6 @@ languages:
     filename: nl
     item: DIAMOND_BLOCK
     displayname: "&6&lNederlands"
+
+
+vanish_join: true

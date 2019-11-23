@@ -12,3 +12,6 @@ commands:
     aliases: lang
   fly:
     usage: /<command>
+  vanish:
+    usage: /<command>
+    aliases: v

@@ -4,6 +4,7 @@ import eu.opencore.OpenCore;
 import eu.opencore.framework.commands.FlyCmd;
 import eu.opencore.framework.commands.GamemodeCmd;
 import eu.opencore.framework.commands.LanguageCmd;
+import eu.opencore.framework.commands.VanishCmd;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +34,13 @@ public class Commands {
 
         // Fly command
         instance.getCommand("fly").setExecutor(new FlyCmd(instance));
+
+        // Vanish command
+        instance.getCommand("vanish").setExecutor(new VanishCmd(instance));
+
+        List<String> vanishAliases = new ArrayList<>();
+        vanishAliases.add("v");
+        instance.getCommand("vanish").setAliases(vanishAliases);
 
     }
 }

@@ -11,6 +11,8 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.UUID;
+
 public class OpenCore extends JavaPlugin {
 
     private static OpenCore instance;
@@ -40,10 +42,17 @@ public class OpenCore extends JavaPlugin {
             OpenCorePlayer openCorePlayer = new OpenCorePlayer(this, player.getUniqueId());
             OpenCorePlayer.players.put(player.getUniqueId(), openCorePlayer);
         }
+
+
     }
 
     public void onDisable() {
-
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            for (UUID uuid : OpenCorePlayer.vanishedPlayers) {
+                Player vanishedPlayer = Bukkit.getPlayer(uuid);
+                player.showPlayer(instance, vanishedPlayer);
+            }
+        }
     }
 
     private void loadLanguages(OpenCoreFile configFile) {

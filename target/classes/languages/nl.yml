@@ -16,6 +16,11 @@ fly_set_on_sender: "&c{player}'s &fkan nu vliegen!"
 fly_set_off_target: "&fJe kan nu niet meer vliegen!"
 fly_set_off_sender: "&c{player}'s &fkan nu niet meer vliegen!"
 
+vanish_set_on_target: "&fJe bent nu &aontzichtbaar&f!"
+vanish_set_on_sender: "&c{player}'s &fis nu ontzichtbaar!"
+vanish_set_off_target: "&fJe bent nu weer &czichtbaar&f!"
+vanish_set_off_sender: "&c{player}'s &fis nu weer zichtbaar!"
+
 inventory_select_language_title: "&c&lSelecteer een taal"
 inventory_select_language_success: "&fJe hebt je taal veranderd naar &c{language}&f!"
 inventory_select_language_same: "&cJe taal staat al op {language}!"
