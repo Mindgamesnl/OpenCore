@@ -6,6 +6,8 @@ import eu.opencore.framework.chat.Replacement;
 import eu.opencore.framework.files.OpenCoreFile;
 import eu.opencore.framework.language.Key;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
+import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 import java.util.UUID;
@@ -26,13 +28,17 @@ public class OpenCorePlayer {
         this.instance = instance;
         this.uuid = uuid;
 
-        loadPlayerData();
+        initializePlayerData();
 
-        if (Bukkit.getPlayer(uuid).hasPermission("opencore.fly")) {
-            setFly(this.hasFly);
-        } else {
-            setFly(false);
+        Player player = Bukkit.getPlayer(uuid);
+        if (player.getGameMode() != GameMode.CREATIVE && player.getGameMode() != GameMode.SPECTATOR) {
+            if (Bukkit.getPlayer(uuid).hasPermission("opencore.fly")) {
+                setFly(this.hasFly);
+            } else {
+                setFly(false);
+            }
         }
+
 
         ChatUtil chatUtil = new ChatUtil(instance);
         Replacement replacement = new Replacement();
@@ -42,7 +48,7 @@ public class OpenCorePlayer {
         chatUtil.sendToConsole(Key.PLAYER_LOADED);
     }
 
-    private synchronized void loadPlayerData() {
+    private synchronized void initializePlayerData() {
         OpenCoreFile playerFile = new OpenCoreFile(instance, "playerdata/" + uuid + ".yml");
 
         if (!playerFile.get().contains("registered")) {
@@ -83,17 +89,17 @@ public class OpenCorePlayer {
         return hasFly;
     }
 
-    public void setFly(boolean hasFly) {
-        if (hasFly) {
+    public void setFly(boolean fly) {
+        if (fly) {
             Bukkit.getPlayer(this.uuid).setAllowFlight(true);
             Bukkit.getPlayer(this.uuid).setFlying(true);
         }
-        if (!hasFly) {
+        if (!fly) {
             Bukkit.getPlayer(this.uuid).setAllowFlight(false);
             Bukkit.getPlayer(this.uuid).setFlying(false);
         }
 
-        this.hasFly = hasFly;
+        this.hasFly = fly;
 
         updatePlayerData();
     }

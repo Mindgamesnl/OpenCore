@@ -4,26 +4,22 @@ import eu.opencore.OpenCore;
 import eu.opencore.framework.chat.ChatUtil;
 import eu.opencore.framework.chat.Replacement;
 import eu.opencore.framework.language.Key;
-import eu.opencore.framework.player.OpenCorePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 
-public class JoinEvent implements Listener  {
+public class QuitListener implements Listener {
 
     private OpenCore instance;
 
-    public JoinEvent(OpenCore instance) {
+    public QuitListener(OpenCore instance) {
         this.instance = instance;
     }
 
     @EventHandler
-    public void onJoin(PlayerJoinEvent event) {
+    public void onQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
-
-        OpenCorePlayer openCorePlayer = new OpenCorePlayer(instance, player.getUniqueId());
-        OpenCorePlayer.players.put(player.getUniqueId(), openCorePlayer);
 
         ChatUtil chatUtil = new ChatUtil(instance);
 
@@ -31,11 +27,8 @@ public class JoinEvent implements Listener  {
         replacement.setPlayer(player.getName());
         chatUtil.setReplacement(replacement);
 
-        chatUtil.broadcastMessage(Key.PLAYER_JOIN_MESSAGE);
+        chatUtil.broadcastMessage(Key.PLAYER_QUIT_MESSAGE);
 
-
-        event.setJoinMessage(null);
+        event.setQuitMessage(null);
     }
-
-
 }

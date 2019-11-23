@@ -34,7 +34,7 @@ public class KeyString {
         while (count <= retries) {
             try {
 
-                if (Language.getLanguageByName(this.language) == null) {
+                if (Language.getLanguageByName(this.language) == null && player != null) {
                     OpenCorePlayer openCorePlayer = OpenCorePlayer.players.get(player.getUniqueId());
                     this.language = "en";
                     openCorePlayer.setLanguage(this.language);
@@ -55,7 +55,7 @@ public class KeyString {
                         openCorePlayer.setLanguage("en");
                     }
                 }
-
+                exception.printStackTrace();
                 count++;
             }
         }

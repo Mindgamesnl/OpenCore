@@ -9,11 +9,11 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
-public class InvClickEvent implements Listener {
+public class InventoryClickListener implements Listener {
 
     private OpenCore instance;
 
-    public InvClickEvent(OpenCore instance) {
+    public InventoryClickListener(OpenCore instance) {
         this.instance = instance;
     }
 
