@@ -52,6 +52,8 @@ public class OpenCore extends JavaPlugin {
                 Player vanishedPlayer = Bukkit.getPlayer(uuid);
                 player.showPlayer(instance, vanishedPlayer);
             }
+
+            player.closeInventory();
         }
     }
 

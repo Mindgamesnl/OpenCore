@@ -1,8 +1,11 @@
 package eu.opencore.framework.language;
 
 import eu.opencore.OpenCore;
+import eu.opencore.framework.chat.ChatUtil;
 import eu.opencore.framework.files.OpenCoreFile;
 import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,8 +20,8 @@ public class Language {
 
     public static Language getLanguageByName(String name) {
         for (Language language : getLanguages()) {
-            String languageName = language.getLanguageName();
-            if (name.toLowerCase().equals(languageName.toLowerCase())) return language;
+            if (name.toLowerCase().equals(language.getLanguageName().toLowerCase())) return language;
+            if (name.toLowerCase().equals(language.getComplexName().toLowerCase())) return language;
         }
         return null;
     }
@@ -49,8 +52,13 @@ public class Language {
         return complexName;
     }
 
-    public Material getLanguageItem() {
-        return languageItem;
+    public ItemStack getLanguageItemStack() {
+        ItemStack itemStack = new ItemStack(languageItem);
+        ItemMeta itemMeta = itemStack.getItemMeta();
+        itemMeta.setDisplayName(ChatUtil.replaceColorCodes(displayName));
+        itemStack.setItemMeta(itemMeta);
+
+        return itemStack;
     }
 
     public String getDisplayName() {

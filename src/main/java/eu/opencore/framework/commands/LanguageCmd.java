@@ -2,9 +2,9 @@ package eu.opencore.framework.commands;
 
 import eu.opencore.OpenCore;
 import eu.opencore.framework.chat.ChatUtil;
-import eu.opencore.framework.inventories.SelectLanguageInventory;
 import eu.opencore.framework.language.Key;
-import eu.opencore.framework.language.Language;
+import eu.opencore.framework.language.KeyString;
+import eu.opencore.framework.menus.SelectLanguageMenu;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -22,13 +22,11 @@ public class LanguageCmd implements CommandExecutor {
         ChatUtil chatUtil = new ChatUtil(instance);
 
         if (sender instanceof Player) {
-            SelectLanguageInventory selectLanguageInventory = new SelectLanguageInventory(instance, (Player) sender);
+            String inventoryTitle = new KeyString(instance, Key.INVENTORY_SELECT_LANGUAGE_TITLE, (Player) sender).replaceColorCodes();
 
-            for (Language language : Language.getLanguages()) {
-                selectLanguageInventory.addItem(language.getDisplayName(), language.getLanguageItem());
-            }
+            SelectLanguageMenu languageMenu = new SelectLanguageMenu(instance, inventoryTitle, 27);
 
-            selectLanguageInventory.open();
+            languageMenu.open((Player) sender);
         } else {
             chatUtil.sendToConsole(Key.PLAYER_ONLY);
         }

@@ -54,7 +54,7 @@ public class ChatUtil {
             keyString = setReplacements(keyString, replacement);
         }
 
-        return keyString.getKeyString();
+        return replaceColorCodes(keyString.getKeyString());
     }
 
     private String getKeyString(Key key) {
@@ -64,7 +64,7 @@ public class ChatUtil {
             keyString = setReplacements(keyString, replacement);
         }
 
-        return keyString.getKeyString();
+        return replaceColorCodes(keyString.getKeyString());
     }
 
     private KeyString setReplacements(KeyString keyString, Replacement replacement) {

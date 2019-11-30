@@ -1,3 +1,9 @@
+## Commands:
+- Gamemode: /gamemode [gamemode] [player]
+- Fly: /fly [player]
+- Language: /language
+- Vanish: /vanish [player]
+
 ## Permissions
 
 Gamemode:
@@ -12,9 +18,3 @@ Vanish:
 - Change own vanish: opencore.vanish
 - Change others vanish: opencore.vanish.others
 - See vanished players: opencore.vanish.seeothers
-
-## Commands:
-- Gamemode: /gamemode [gamemode] [player]
-- Fly: /fly [player]
-- Language: /language
-- Vanish: /vanish [player]
