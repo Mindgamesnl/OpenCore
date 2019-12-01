@@ -3,12 +3,15 @@ package eu.opencore;
 import eu.opencore.framework.files.OpenCoreFile;
 import eu.opencore.framework.files.OpenCoreFolder;
 import eu.opencore.framework.language.Language;
+import eu.opencore.framework.objects.SkullTexture;
 import eu.opencore.framework.player.OpenCorePlayer;
 import eu.opencore.framework.registry.Commands;
 import eu.opencore.framework.registry.Listeners;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.craftbukkit.v1_13_R2.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.UUID;
@@ -63,11 +66,12 @@ public class OpenCore extends JavaPlugin {
                 try {
                     String languageName = configFile.get().getString("languages." + key + ".languagename");
                     String complexName = configFile.get().getString("languages." + key + ".filename");
-                    Material item;
+                    ItemStack item;
                     try {
-                        item = Material.getMaterial(configFile.get().getString("languages." + key + ".item"));
+                        SkullTexture languageSkull = new SkullTexture(configFile.get().getString("languages." + key + ".head"));
+                        item = languageSkull.getItem();
                     } catch (NullPointerException nullPointerException) {
-                        item = Material.BEDROCK;
+                        item = new ItemStack(Material.BEDROCK, 1);
                     }
                     String displayName = configFile.get().getString("languages." + key + ".displayname");
 
@@ -77,7 +81,7 @@ public class OpenCore extends JavaPlugin {
                 }
             }
         } else {
-            new Language(this, "English", "en", Material.EMERALD_BLOCK, "&c&lEnglish");
+            new Language(this, "English", "en", new ItemStack(Material.BEDROCK, 1), "&c&lEnglish");
         }
     }
 

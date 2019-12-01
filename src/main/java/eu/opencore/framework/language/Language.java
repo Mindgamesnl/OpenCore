@@ -3,7 +3,6 @@ package eu.opencore.framework.language;
 import eu.opencore.OpenCore;
 import eu.opencore.framework.chat.ChatUtil;
 import eu.opencore.framework.files.OpenCoreFile;
-import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -29,10 +28,10 @@ public class Language {
     private String languageName;
     private String complexName;
 
-    private Material languageItem;
+    private ItemStack languageItem;
     private String displayName;
 
-    public Language(OpenCore instance, String languageName, String complexName, Material languageItem, String displayName) {
+    public Language(OpenCore instance, String languageName, String complexName, ItemStack languageItem, String displayName) {
         this.languageName = languageName;
         this.complexName = complexName;
         this.languageItem = languageItem;

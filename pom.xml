@@ -6,7 +6,7 @@
 
     <groupId>eu.opencore</groupId>
     <artifactId>OpenCore</artifactId>
-    <version>0.0.3</version>
+    <version>0.1.0</version>
     <packaging>jar</packaging>
 
     <name>OpenCore</name>
@@ -14,6 +14,8 @@
     <properties>
         <java.version>11</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <spigot.version>1.13.2-R0.1-SNAPSHOT</spigot.version>
     </properties>
 
     <build>
@@ -53,10 +55,23 @@
         </resources>
     </build>
 
+    <repositories>
+        <repository>
+            <id>papermc</id>
+            <url>https://papermc.io/repo/repository/maven-public/</url>
+        </repository>
+    </repositories>
+
     <dependencies>
         <dependency>
             <groupId>org.spigotmc</groupId>
-            <artifactId>spigot-api</artifactId>
+            <artifactId>spigot</artifactId>
+            <version>${spigot.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.destroystokyo.paper</groupId>
+            <artifactId>paper-api</artifactId>
             <version>1.13.2-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>

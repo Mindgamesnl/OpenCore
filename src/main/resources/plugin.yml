@@ -1,6 +1,7 @@
 name: OpenCore
 authors: [iTeije]
 version: ${project.version}
+api-version: 1.13
 main: eu.opencore.OpenCore
 
 commands:
